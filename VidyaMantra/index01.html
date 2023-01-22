@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+  <style>
+   *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box
+  }
+  
+  html, body{
+   
+  }
+  
+  main{
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    padding-top: 100px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: sans-serif;
+    background: #131314;
+    overflow: hidden;
+  }
+  
+  form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 620px;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    background: #242425;
+    padding: 16px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 100;
+    animation: fade 850ms linear forwards;
+  }
+  
+  form h2{
+    color: #f4f4ff;
+    font-size: 24px;
+    margin-bottom: 28px;
+  }
+  
+  form fildset{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  form label{
+    color: #f4f4ffcc;
+    font-size: 14px;
+    
+  }
+
+  
+
+  
+  form input{
+   /* width: 100%; */
+    height: 38px;
+    border-radius: 4px;
+    border: unset;
+    background: #303030;
+    padding-left: 16px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #f5f5ff;
+  }
+
+  #eventName{
+      width: 100%;
+  }
+  #startTime{
+      width: 95%;
+    
+  }
+ #endTime{
+     width: 95%;
+     margin-left: 15px;
+    
+ }
+.date{
+    width: 100%;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    
+    justify-content: space-between;
+}
+
+  form input:placeholder{
+    font-size: 13px;
+  }
+  
+  form input:hover{
+    outline: unset;
+  }
+  
+  form input:focus{
+    outline: 2px solid #1f64bf;
+  }
+  
+
+  form .error{
+    color: #dd4444;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+    width: 100%;
+    margin-top: -8px
+  }
+  
+  form button{
+    height: 42px;
+    width: 100%;
+    border-radius: 4px;
+    background: #1f64bf;
+    border: 1px solid #1f64bf;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: opacity 500ms linear;
+    margin-top: -8px;
+  }
+  
+  form input:selection{
+    background: unset;
+  }
+  
+  form button:hover{
+    opacity: 0.7;
+  }
+  
+  #OrderList{
+      margin-top: 20px;
+     width: 80%;
+  }
+
+  #OrderList li{
+    width: 100%;
+    padding: 0.7rem;
+    background: #444;
+    color: white;
+    margin-top: 1rem;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #conflit{
+    margin-top: 20px;
+    width: 80%;
+  }
+
+  #conflit li{
+    width: 100%;
+    padding: 0.7rem;
+    background: rgb(228, 145, 145);
+    color: white;
+    margin-top: 1rem;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #clearConFlit{
+    margin-top: 20px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .display{
+    display: none !important;
+  }
+
+  
+.btn{
+  height: 42px;
+  width: 250px;
+  border-radius: 4px;
+  background: #1f64bf;
+  border: 1px solid #1f64bf;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: opacity 500ms linear;
+  margin-top: -8px;
+}
+
+  </style>
+
+
+</head>
+<body>
+    <main>
+        <form id="add">
+          <h2>Add Event</h2>
+        <fildset>
+          <label for="email">Event</label>
+          <input id="eventName" type="text" placeholder="Event name.." name="event"></input>
+        </fildset>
+      <div class="date">  
+        <fildset>   
+           <label for="senha">From</label>
+           <input type="datetime-local" id="startTime" placeholder="Event name.." name="startTime"></input>
+        </fildset>
+        <fildset>
+            <label for="senha">To</label>
+            <input type="datetime-local" id="endTime" placeholder="Event name.." name="endTime"></input>
+         </fildset>
+        </div>  
+          <span class="error"></span>
+          <button id type="submit">Add Event</button>
+      </form>
+      <ul id="conflit">
+        
+        
+      </ul>
+      <div id="clearConFlit" class="display">
+        <button id="deleteOldEvent" class="btn" >Delete Old Event</button>
+        <button id="deleteNewEvent" class="btn" >Delete New Event</button>
+      </div>
+      <ul id="OrderList">
+        <li>
+          <span class="text">Do this do that</span>
+          <span class="text">From</span>
+          <span class="text">To</span>
+        
+        </li>
+      </ul>
+      </main>
+      <script>
+        console.log("hello world!");
+let element = document.querySelectorAll("li");
+
+const eventName = document.querySelector("#eventName");
+const startTime = document.querySelector("#startTime");
+const endTime = document.querySelector("#endTime");
+const orderList = document.querySelector("#OrderList");
+const conflitList = document.querySelector("#conflit");
+const form = document.querySelector("#add");
+const deletEventDiv = document.querySelector("#clearConFlit");
+let newEventIndex;
+
+const allEventArrMap = () => {
+  //maping of allEvents
+  allEvents.map((items) => {
+    let eventName = items["event"];
+    let startDate = items["startTime"];
+    let endDate = items["endDate"];
+    const newInerHtml = `<span class="text">${eventName}</span>
+  <span class="text">From : ${startDate}</span>
+    <span class="text">To : ${endDate}</span>
+  `;
+
+    const newelement = document.createElement("li");
+    newelement.innerHTML = newInerHtml;
+    orderList.append(newelement);
+  });
+  //maping end of allEvents
+};
+
+// console.log(deletEventDiv);
+
+let i = 0;
+let allEvents = [];
+let conflitArr = [];
+//adding event on submit
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  //validation
+  let startDate = new Date(startTime.value);
+  let endDate = new Date(endTime.value);
+  if (eventName.value === "") {
+    alert("Please Enter the Event name");
+    return;
+  } else if (!startTime.value) {
+    alert("Please Enter the Start Date");
+    return;
+  } else if (!endTime.value) {
+    alert("Please Enter the End Date");
+    return;
+  } else if (startDate > endDate) {
+    alert("Start date is big than End Date");
+    return;
+  }
+
+  //pushing value allEvents from input
+  allEvents.push({
+    id: i,
+    event: eventName.value,
+    startTime: startTime.value,
+    endDate: endTime.value,
+  });
+
+  //sorting allEvents by date;
+  allEvents.sort(function (a, b) {
+    return new Date(a.startTime) - new Date(b.startTime);
+  });
+
+  // new conflit checker
+
+  let newEventStartDate = new Date(startTime.value);
+  let newEventEndDate = new Date(endTime.value);
+  function indexChecker(arr, id) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i]["id"] === id) {
+        return i;
+      }
+    }
+  }
+  // new event index
+  newEventIndex = indexChecker(allEvents, i);
+  // console.log(newEventIndex);
+
+  // let check upper side event conflit
+  if (newEventIndex > 0) {
+    for (let i = newEventIndex - 1; i >= 0; i--) {
+      //console.log('let check upper side event conflt');
+      let eventEndDate = new Date(allEvents[i]["endDate"]);
+      if (newEventStartDate < eventEndDate) {
+        conflitArr.push(allEvents[i]);
+      }
+    }
+  }
+  // console.log(conflitArr);
+  // End check upper side event conflit
+
+  // let check Down side event conflit
+
+  if (allEvents.length - 1 > newEventIndex) {
+    for (let i = newEventIndex + 1; i < allEvents.length; i++) {
+      // console.log(i);
+      // console.log(allEvents);
+      let eventStartDate = new Date(allEvents[i]["startTime"]);
+      // console.log('let check Down side event conflt');
+      if (newEventEndDate > eventStartDate) {
+        conflitArr.push(allEvents[i]);
+      }
+    }
+  }
+
+  // console.log(conflitArr);
+
+  if (conflitArr.length > 0) {
+    deletEventDiv.classList.remove("display");
+    conflitList.innerHTML = "";
+    //maping of conflitevent
+    conflitArr.map((items) => {
+      let eventName = items["event"];
+      let startDate = items["startTime"];
+      let endDate = items["endDate"];
+      const newInerHtml = `<span class="text">${eventName}</span>
+  <span class="text">From : ${startDate}</span>
+    <span class="text">To : ${endDate}</span>
+  `;
+
+      const newelement = document.createElement("li");
+      newelement.innerHTML = newInerHtml;
+      conflitList.append(newelement);
+    });
+
+    return;
+  }
+
+  // new end conflit checker
+// maping new element list
+  orderList.innerHTML = "";
+  allEventArrMap();
+// maping end new element list
+
+    /*confilt check
+     if (allEvents.length > 1) {
+      let confiltArr = [];
+
+       for (let i = 0; i < allEvents.length - 1; i++) {
+         //console.log(allEvents[i+1]['startTime'])
+          let nextEventStartDate = new Date(allEvents[i + 1]["startTime"]);
+         let eventEndDate = new Date(allEvents[i]["endDate"]);
+         if (nextEventStartDate < eventEndDate) {
+           confiltArr.push(allEvents[i]["id"]);
+         }
+      }
+
+       if (confiltArr.length > 0) {
+        alert("conflit Occur");
+       }
+     }
+     confilt check End  */
+
+  //set null aftr appendig data all inputs
+  eventName.value = "";
+  startTime.value = "";
+  endTime.value = "";
+  i++;
+});
+
+//dlete data after conflit
+
+const deleteOldEvent = document.querySelector("#deleteOldEvent");
+const deleteNewEvent = document.querySelector("#deleteNewEvent");
+
+deleteOldEvent.addEventListener("click", () => {
+  allEvents = allEvents.filter((el) => !conflitArr.includes(el));
+  orderList.innerHTML = "";
+
+  allEventArrMap();
+  conflitList.innerHTML = "";
+  eventName.value = "";
+  startTime.value = "";
+  endTime.value = "";
+  i++;
+  newEventIndex = null;
+  conflitArr = [];
+  deletEventDiv.classList.add("display");
+});
+
+deleteNewEvent.addEventListener("click", () => {
+  allEvents.splice(newEventIndex, 1);
+  orderList.innerHTML = "";
+
+  allEventArrMap();
+  conflitList.innerHTML = "";
+  eventName.value = "";
+  startTime.value = "";
+  endTime.value = "";
+  i++;
+  newEventIndex = null;
+  conflitArr = [];
+  deletEventDiv.classList.add("display");
+});
+
+      </script>
+</body>
+</html>

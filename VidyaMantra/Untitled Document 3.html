@@ -1,0 +1,131 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+        
+        </style>
+        <title>Title</title>
+    </head>
+    <body>
+    <div class="container">
+     <div class="event">
+     <form id="add">
+    <h3>Input your Event Naem<h3>
+    <input id="eventName" type="text" name="event"></input>
+    <h3>Start time<h3>
+    <input type="datetime-local" id="startTime" name="startTime">
+    <h3>End time<h3>
+    <input type="datetime-local" id="endTime" name="endTime">
+    <button id type="submit">Add Event</button>
+    </form>
+    <div>
+    </div>
+    <ol id="OrderList">
+     <li calss="to_do">Hello World!</li>
+     <li calss="to_do">Hello World!</li>
+     <li calss="to_do"> Hello World!</li>
+     <li calss="to_do">Hello World!</li>
+    </ol>
+        <script >
+        let element=document.querySelectorAll("li");
+        console.log(element);
+      
+        const eventName=document.querySelector('#eventName');
+        const startTime=document.querySelector('#startTime');
+        const endTime=document.querySelector('#endTime');
+        const  orderList=document.querySelector('#OrderList');
+        const form = document.querySelector('#add');
+       let i=0;
+        let allEvents=[];
+        //adding event on submit
+        form.addEventListener('submit',(e)=>{	
+        event.preventDefault();
+        
+        //validation
+        let startDate= new Date(startTime.value);
+        let endDate= new Date(endTime.value);
+        if(eventName.value===''){
+        alert("Please Enter the Event name");
+        return;
+        } else if(!startTime.value){
+        alert("Please Enter the Start Date");
+        return;
+        } else if(!endTime.value){
+        alert("Please Enter the End Date");
+        return;
+        }else if(startDate>endDate){
+        alert("Start date is big than End Date");
+        return;
+        }
+        
+        
+        
+        
+        //pushing value allEvents from input
+        allEvents.push({id:i, event:eventName.value, startTime:startTime.value, endDate:endTime.value});
+        i++;
+        //sorting allEvents by date;
+        allEvents.sort(function(a,b){return new Date(a.startTime) - new Date(b.startTime);
+});
+       
+        
+
+        
+        
+
+        orderList.innerHTML='';
+        //maping of allEvents
+        allEvents.map((items)=>{
+        const newInerHtml="Event Name = " + items['event'] +"     Start time = "+items['startTime'] +"   EndTime = " + items['endDate']+" ." ; 
+        const newelement=document.createElement("li");
+        newelement.innerHTML=newInerHtml;
+        orderList.append(newelement);
+        } );
+        //maping end of allEvents
+        
+       
+        
+       	
+        
+        
+        //set null aftr appendig data all inputs
+        eventName.value='';
+        startTime.value='';
+        endTime.value='';
+        
+        
+        
+         //confilt check
+     if(allEvents.length>1){
+        let confiltArr=[];
+
+        for(let i=0;i<allEvents.length-1;i++){
+        //console.log(allEvents[i+1]['startTime'])
+        let nextEventStartDate= new Date(allEvents[i+1]['startTime']);
+        let eventEndDate = new Date(allEvents[i]['endDate']);
+        if(nextEventStartDate<eventEndDate){
+        confiltArr.push(allEvents[i]['id']);
+        
+         }
+        }
+        
+        if(confiltArr.length>0){
+        alert("conflit Occur");
+        }
+        
+        
+      }
+        
+        
+        
+        
+        })	
+        
+        
+   
+        
+        
+        </script>
+    </body>
+</html>
